@@ -29,11 +29,11 @@ import {
 import { Container, Text, truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
 
 const LEFT_PAD = " "; // align compact tool rows with thinking/output transcript rows
-const MAX_ARG = 75; // truncate the one-line arg so a padded row never wraps
+const MAX_ERROR = 75; // keep collapsed error rows compact
 const BASH_DETAIL_MAX_LINES = 5;
 
-function fit(s: string): string {
-	return s.length > MAX_ARG ? `${s.slice(0, MAX_ARG - 1)}…` : s;
+function fitError(s: string): string {
+	return s.length > MAX_ERROR ? `${s.slice(0, MAX_ERROR - 1)}…` : s;
 }
 
 // Each tool's NAME deterministically picks a unique hue, so any tool — including
@@ -163,10 +163,10 @@ export default function (pi: ExtensionAPI) {
 
 			renderCall(args, theme, _context) {
 				// Bash is always red; other tool names get a unique color hashed from name.
-				// Content: muted gray.
+				// Content: muted gray. Keep the full argument/path visible; do not truncate.
 				const toolName = spec.name === "bash" ? theme.fg("error", theme.bold(spec.verb)) : colorName(spec.name, spec.verb);
 				let line = `${LEFT_PAD}${toolName} `;
-				line += theme.fg("muted", fit(String(spec.arg(args) ?? "")));
+				line += theme.fg("muted", String(spec.arg(args) ?? ""));
 				return new Text(line, 0, 0);
 			},
 
@@ -184,7 +184,7 @@ export default function (pi: ExtensionAPI) {
 				}
 
 				if (isError) {
-					return new Text(theme.fg("error", `${LEFT_PAD}✗ ${fit(text.split("\n")[0] ?? "error")}`), 0, 0);
+					return new Text(theme.fg("error", `${LEFT_PAD}✗ ${fitError(text.split("\n")[0] ?? "error")}`), 0, 0);
 				}
 				return new Container(); // success → no result rows, the call line is the whole thing
 			},

@@ -4,7 +4,7 @@ A standalone Pi extension that makes built-in tool calls render as compact singl
 
 ## Features
 
-- Collapses `read`, `bash`, `edit`, `write`, `grep`, `find`, and `ls` calls to `<Tool> <primary arg>`.
+- Collapses `read`, `bash`, `edit`, `write`, `grep`, `find`, and `ls` calls to `<Tool> <primary arg>` without truncating call paths/arguments.
 - Leaves tool execution untouched; only rendering is overridden.
 - Uses stable colors per tool name; `Bash` is always red.
 - Muted gray arguments keep the transcript compact.
