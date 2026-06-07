@@ -1,0 +1,19 @@
+{
+  "name": "pi-compact-tool-calls",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Compact single-line rendering for Pi built-in tool calls.",
+  "keywords": ["pi-package", "pi", "tools", "rendering"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yippiez/pi-compact-tool-calls.git"
+  },
+  "pi": {
+    "extensions": ["./extensions/pi-compact-tool-calls.ts"]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  }
+}
