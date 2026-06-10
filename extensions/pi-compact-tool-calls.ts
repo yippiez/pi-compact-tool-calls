@@ -174,7 +174,7 @@ export default function (pi: ExtensionAPI) {
 				if (options.isPartial) return new Container(); // still running: keep the lone call line
 				const text = resultText(result);
 				const details = result.details as any;
-				const isError = Boolean(details?.error || details?.blocked) || /^Error/i.test(text);
+				const isError = options.isError || Boolean(details?.error || details?.blocked) || /^Error/i.test(text);
 
 				if (options.expanded) {
 					if (spec.name === "bash") return renderBoxDetails(text, "stdout", theme) as any;
