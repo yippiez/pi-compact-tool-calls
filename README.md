@@ -1,3 +1,14 @@
+# Moved to pchain
+
+This repository has moved into the pchain monorepo:
+
+- https://github.com/yippiez/pchain
+- Pi implementation: `pchain/pi/`
+
+This repo is kept only for history and compatibility.
+
+---
+
 # pi-compact-tool-calls
 
 A standalone Pi extension that makes built-in tool calls render as compact single-line rows.
