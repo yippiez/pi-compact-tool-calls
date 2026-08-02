@@ -1,19 +1,31 @@
 {
   "name": "pi-compact-tool-calls",
   "version": "0.1.0",
-  "private": true,
+  "description": "Compact Pi tool-call rendering with rich Bash, Python, image, and diff panels.",
   "type": "module",
-  "description": "Compact single-line rendering for Pi built-in tool calls.",
-  "keywords": ["pi-package", "pi", "tools", "rendering"],
+  "keywords": [
+    "pi-package"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/yippiez/pi-compact-tool-calls.git"
   },
-  "pi": {
-    "extensions": ["./extensions/pi-compact-tool-calls.ts"]
+  "scripts": {
+    "typecheck": "tsc --noEmit"
   },
+  "dependencies": {},
   "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-agent-core": "*",
     "@earendil-works/pi-coding-agent": "*",
     "@earendil-works/pi-tui": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
   }
 }
