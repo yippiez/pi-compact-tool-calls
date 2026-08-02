@@ -19,7 +19,7 @@ pi install -l git:github.com/yippiez/pi-compact-tool-calls
 ```bash
 npm install
 npm run typecheck
-pi --no-extensions -e .
+pi --no-extensions -e ./extensions/pi-compact-tool-calls/index.ts
 ```
 
 Extracted from the current implementation in [pchain](https://github.com/yippiez/pchain).
