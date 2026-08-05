@@ -244,6 +244,27 @@ function PythonLaunchDetect(tokens: ShellToken[]): PythonLaunch | undefined {
 
 	const executable = basename(words[start] ?? "");
 	const rest = words.slice(start + 1);
+
+	// `compute bash` commonly delegates to a shell wrapper, for example:
+	//
+	//   compute bash ... -- bash -lc 'python - <<\'PY\' ...'
+	//
+	// The outer shell tokenizer intentionally keeps quoted command strings as
+	// one token, so unwrap `bash -c/-lc` and tokenize that command separately.
+	// This also handles the same wrapper when it is used without `compute`.
+	if (/^(?:bash|sh|zsh|dash)$/.test(executable)) {
+		const commandIndex = rest.findIndex(
+			(arg) => arg === "-c" || arg === "-lc" || arg === "--command" || /^-[^-]*c$/.test(arg),
+		);
+		const nestedCommand = commandIndex >= 0 ? rest[commandIndex + 1] : undefined;
+		if (nestedCommand !== undefined) {
+			const nested = PythonLaunchDetect(PythonShellTokens(nestedCommand));
+			if (nested) {
+				return nested;
+			}
+		}
+	}
+
 	if (executable === "compute") {
 		// Continue with the next logical phase.
 		const execIndex = rest.indexOf("exec");
